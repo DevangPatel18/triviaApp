@@ -40,18 +40,8 @@ const HomePage = () => {
           alert(JSON.stringify(values, null, 2));
         }}
         render={props => (
-          <form onSubmit={props.handleSubmit}>
-            <p>Number of Questions</p>
-            <input
-              type="range"
-              name="amount"
-              min="5"
-              max="50"
-              step="5"
-              value={props.values.amount}
-              onChange={props.handleChange}
-            />
-            <p>Categories</p>
+          <form onSubmit={props.handleSubmit} className="quizMenu">
+            <h3>Categories</h3>
             <select name="categories" onChange={props.handleChange}>
               {categoryList.map(({ id, name }) => (
                 <option value={id} key={id}>
@@ -59,38 +49,56 @@ const HomePage = () => {
                 </option>
               ))}
             </select>
-            <p>Difficulty</p>
-            <ul>
-              {difficultyOptions.map(({ value, id, label }, idx) => (
-                <li key={idx}>
-                  <input
-                    type="radio"
-                    name="difficulty"
-                    value={value}
-                    id={id}
-                    checked={props.values.difficulty === value}
-                    onChange={props.handleChange}
-                  />
-                  <label htmlFor={id}>{label}</label>
-                </li>
-              ))}
-            </ul>
-            <p>Type</p>
-            <ul>
-              {typeOptions.map(({ value, id, label }, idx) => (
-                <li key={idx}>
-                  <input
-                    type="radio"
-                    name="type"
-                    value={value}
-                    id={id}
-                    checked={props.values.type === value}
-                    onChange={props.handleChange}
-                  />
-                  <label htmlFor={id}>{label}</label>
-                </li>
-              ))}
-            </ul>
+            <div className="quizMenu-radioGroup">
+              <div>
+                <h3>Difficulty</h3>
+                <ul>
+                  {difficultyOptions.map(({ value, id, label }, idx) => (
+                    <li key={idx}>
+                      <input
+                        type="radio"
+                        name="difficulty"
+                        value={value}
+                        id={id}
+                        checked={props.values.difficulty === value}
+                        onChange={props.handleChange}
+                      />
+                      <label htmlFor={id}>{label}</label>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3>Type</h3>
+                <ul>
+                  {typeOptions.map(({ value, id, label }, idx) => (
+                    <li key={idx}>
+                      <input
+                        type="radio"
+                        name="type"
+                        value={value}
+                        id={id}
+                        checked={props.values.type === value}
+                        onChange={props.handleChange}
+                      />
+                      <label htmlFor={id}>{label}</label>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div>
+              <h3>Number of Questions</h3>
+              <input
+                type="range"
+                name="amount"
+                min="5"
+                max="50"
+                step="5"
+                value={props.values.amount}
+                onChange={props.handleChange}
+              />
+            </div>
             <button type="submit">Start Quiz</button>
           </form>
         )}
