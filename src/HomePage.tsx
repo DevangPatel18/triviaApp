@@ -10,6 +10,19 @@ interface QuizConfigForm {
   type: string;
 }
 
+const difficultyOptions = [
+  { value: '', id: 'anyDifficulty', label: 'Any' },
+  { value: 'easy', id: 'easy', label: 'Easy' },
+  { value: 'medium', id: 'medium', label: 'Medium' },
+  { value: 'hard', id: 'hard', label: 'Hard' },
+];
+
+const typeOptions = [
+  { value: '', id: 'anyType', label: 'Any' },
+  { value: 'multiple', id: 'multiple', label: 'Multiple' },
+  { value: 'boolean', id: 'boolean', label: 'True / False' },
+];
+
 const HomePage = () => {
   const { state, dispatch } = React.useContext(Store);
   const initialValues: QuizConfigForm = {
@@ -48,86 +61,35 @@ const HomePage = () => {
             </select>
             <p>Difficulty</p>
             <ul>
-              <li>
-                <input
-                  type="radio"
-                  name="difficulty"
-                  value=""
-                  id="anyDifficulty"
-                  checked={props.values.difficulty === ''}
-                  onChange={props.handleChange}
-                />
-                <label htmlFor="anyDifficulty">Any</label>
-              </li>
-              <li>
-                <input
-                  type="radio"
-                  name="difficulty"
-                  value="easy"
-                  id="easy"
-                  checked={props.values.difficulty === 'easy'}
-                  onChange={props.handleChange}
-                />
-                <label htmlFor="easy">Easy</label>
-              </li>
-              <li>
-                <input
-                  type="radio"
-                  name="difficulty"
-                  value="medium"
-                  id="medium"
-                  checked={props.values.difficulty === 'medium'}
-                  onChange={props.handleChange}
-                />
-                <label htmlFor="medium">Medium</label>
-              </li>
-              <li>
-                <input
-                  type="radio"
-                  name="difficulty"
-                  value="hard"
-                  id="hard"
-                  checked={props.values.difficulty === 'hard'}
-                  onChange={props.handleChange}
-                />
-                <label htmlFor="hard">Hard</label>
-              </li>
+              {difficultyOptions.map(({ value, id, label }, idx) => (
+                <li key={idx}>
+                  <input
+                    type="radio"
+                    name="difficulty"
+                    value={value}
+                    id={id}
+                    checked={props.values.difficulty === value}
+                    onChange={props.handleChange}
+                  />
+                  <label htmlFor={id}>{label}</label>
+                </li>
+              ))}
             </ul>
             <p>Type</p>
             <ul>
-              <li>
-                <input
-                  type="radio"
-                  name="type"
-                  value=""
-                  id="anyType"
-                  checked={props.values.type === ''}
-                  onChange={props.handleChange}
-                />
-                <label htmlFor="anyType">Any</label>
-              </li>
-              <li>
-                <input
-                  type="radio"
-                  name="type"
-                  value="multiple"
-                  id="multiple"
-                  checked={props.values.type === 'multiple'}
-                  onChange={props.handleChange}
-                />
-                <label htmlFor="multiple">Multiple</label>
-              </li>
-              <li>
-                <input
-                  type="radio"
-                  name="type"
-                  value="boolean"
-                  id="boolean"
-                  checked={props.values.type === 'boolean'}
-                  onChange={props.handleChange}
-                />
-                <label htmlFor="boolean">Boolean</label>
-              </li>
+              {typeOptions.map(({ value, id, label }, idx) => (
+                <li key={idx}>
+                  <input
+                    type="radio"
+                    name="type"
+                    value={value}
+                    id={id}
+                    checked={props.values.type === value}
+                    onChange={props.handleChange}
+                  />
+                  <label htmlFor={id}>{label}</label>
+                </li>
+              ))}
             </ul>
             <button type="submit">Start Quiz</button>
           </form>
