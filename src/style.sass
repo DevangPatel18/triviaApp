@@ -19,3 +19,32 @@ body
     li
       text-align: left
       list-style-type: none
+
+  &_count
+
+    &_slider
+      -webkit-appearance: none
+      -webkit-transition: .2s
+      outline: none
+      height: 0.25rem
+      background: lightgrey
+      opacity: 0.7
+      transition: opacity .2s
+
+      &:hover
+        opacity: 1
+
+      &::-webkit-slider-thumb
+        -webkit-appearance: none
+        appearance: none
+        width: 1rem
+        height: 1rem
+        border-radius: 1rem
+        background: black
+        cursor: pointer
+      
+      &::-moz-range-thumb
+        border-radius: 1rem
+        border: 1px solid black
+        background: black
+        cursor: pointer

@@ -87,7 +87,7 @@ const HomePage = () => {
                 </ul>
               </div>
             </div>
-            <div>
+            <div className="quizMenu_count">
               <h3>Number of Questions</h3>
               <input
                 type="range"
@@ -97,6 +97,7 @@ const HomePage = () => {
                 step="5"
                 value={props.values.amount}
                 onChange={props.handleChange}
+                className="quizMenu_count_slider"
               />
             </div>
             <button type="submit">Start Quiz</button>
