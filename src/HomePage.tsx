@@ -89,6 +89,7 @@ const HomePage = () => {
             </div>
             <div className="quizMenu_count">
               <h3>Number of Questions</h3>
+              <p>{props.values.amount}</p>
               <input
                 type="range"
                 name="amount"
