@@ -2,13 +2,7 @@ import React from 'react';
 import { Store } from './Store';
 import categoryList from './categories';
 import { Formik } from 'formik';
-
-interface QuizConfigForm {
-  amount: number;
-  category: number;
-  difficulty: string;
-  type: string;
-}
+import { IQuizConfigForm } from './interfaces';
 
 const difficultyOptions = [
   { value: '', id: 'anyDifficulty', label: 'Any' },
@@ -25,7 +19,7 @@ const typeOptions = [
 
 const HomePage = () => {
   const { state, dispatch } = React.useContext(Store);
-  const initialValues: QuizConfigForm = {
+  const initialValues: IQuizConfigForm = {
     amount: 5,
     category: 9,
     difficulty: '',
