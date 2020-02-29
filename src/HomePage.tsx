@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 
 interface QuizConfigForm {
   amount: number;
-  categories: number;
+  category: number;
   difficulty: string;
   type: string;
 }
@@ -27,7 +27,7 @@ const HomePage = () => {
   const { state, dispatch } = React.useContext(Store);
   const initialValues: QuizConfigForm = {
     amount: 5,
-    categories: 9,
+    category: 9,
     difficulty: '',
     type: '',
   };
@@ -42,7 +42,7 @@ const HomePage = () => {
         render={props => (
           <form onSubmit={props.handleSubmit} className="quizMenu">
             <h3>Categories</h3>
-            <select name="categories" onChange={props.handleChange}>
+            <select name="category" onChange={props.handleChange}>
               {categoryList.map(({ id, name }) => (
                 <option value={id} key={id}>
                   {name}
