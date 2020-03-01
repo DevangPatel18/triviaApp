@@ -1,6 +1,8 @@
 export type Dispatch = React.Dispatch<IAction>;
 
-export interface IState {}
+export interface IState {
+  questions: Array<IQuestion>;
+}
 
 export interface IAction {
   type: string;
@@ -12,4 +14,13 @@ export interface IQuizConfigForm {
   category: number;
   difficulty: string;
   type: string;
+}
+
+export interface IQuestion {
+  category: string;
+  type: string;
+  difficulty: string;
+  question: string;
+  correct_answer: string;
+  incorrect_answers: Array<string>;
 }
