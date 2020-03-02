@@ -2,6 +2,7 @@ import React from 'react';
 import { Store } from './Store';
 import categoryList from './categories';
 import { Formik } from 'formik';
+import { fetchQuestions } from './Actions';
 import { IQuizConfigForm } from './interfaces';
 
 const difficultyOptions = [
@@ -26,12 +27,14 @@ const HomePage = () => {
     type: '',
   };
 
+  console.log(state.questions); 
+
   return (
     <React.Suspense fallback={<div>loading</div>}>
       <Formik
         initialValues={initialValues}
         onSubmit={values => {
-          alert(JSON.stringify(values, null, 2));
+          fetchQuestions(values, dispatch);
         }}
         render={props => (
           <form onSubmit={props.handleSubmit} className="quizMenu">
