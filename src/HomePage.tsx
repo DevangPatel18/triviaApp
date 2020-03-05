@@ -4,6 +4,7 @@ import categoryList from './categories';
 import { Formik } from 'formik';
 import { fetchQuestions } from './Actions';
 import { IQuizConfigForm } from './interfaces';
+import { useTransition, animated } from 'react-spring';
 
 const difficultyOptions = [
   { value: '', id: 'anyDifficulty', label: 'Any' },
@@ -27,7 +28,13 @@ const HomePage = () => {
     type: '',
   };
 
-  console.log(state.questions); 
+  console.log(state.questions);
+
+  const transitions = useTransition(state.loadStatus, null, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  });
 
   return (
     <React.Suspense fallback={<div>loading</div>}>
@@ -102,6 +109,16 @@ const HomePage = () => {
           </form>
         )}
       />
+      <div style={{ margin: '3rem 0 auto', textAlign: 'center' }}>
+        {transitions.map(
+          ({ item, key, props }) =>
+            item && (
+              <animated.div style={props} key={key}>
+                Loading
+              </animated.div>
+            )
+        )}
+      </div>
     </React.Suspense>
   );
 };
