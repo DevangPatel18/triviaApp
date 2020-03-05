@@ -10,8 +10,12 @@ export const fetchQuestions = async (
   const response = await axios(fetchUrl, {
     params: formState,
     timeout: 2000,
-  }).then(res => res.data);
-  if (response.response_code === 0) {
+  })
+    .then(res => res.data)
+    .catch(err => {
+      console.log(err);
+    });
+  if (response?.response_code === 0) {
     dispatch({
       type: 'FETCH_QUESTIONS',
       payload: response.results,
