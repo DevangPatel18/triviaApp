@@ -105,7 +105,9 @@ const HomePage = () => {
                 className="quizMenu_count_slider"
               />
             </div>
-            <button type="submit">Start Quiz</button>
+            <button type="submit" className="quizMenu_submit">
+              Start Quiz
+            </button>
           </form>
         )}
       />
