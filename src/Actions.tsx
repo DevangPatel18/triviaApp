@@ -7,6 +7,7 @@ export const fetchQuestions = async (
   formState: IQuizConfigForm,
   dispatch: Dispatch
 ) => {
+  setLoadingStatus(true, dispatch);
   const response = await axios(fetchUrl, {
     params: formState,
     timeout: 2000,
@@ -14,6 +15,7 @@ export const fetchQuestions = async (
     .then(res => res.data)
     .catch(err => {
       console.log(err);
+      setLoadingStatus(false, dispatch);
     });
   if (response?.response_code === 0) {
     dispatch({
@@ -21,6 +23,7 @@ export const fetchQuestions = async (
       payload: response.results,
     });
   }
+  setLoadingStatus(false, dispatch);
 };
 
 export const setLoadingStatus = async (status: boolean, dispatch: Dispatch) => {
