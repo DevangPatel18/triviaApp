@@ -2,6 +2,7 @@ export type Dispatch = React.Dispatch<IAction>;
 
 export interface IState {
   questions: Array<IQuestion>;
+  loadStatus: boolean;
 }
 
 export interface IAction {
