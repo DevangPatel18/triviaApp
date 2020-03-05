@@ -17,3 +17,10 @@ export const fetchQuestions = async (
     });
   }
 };
+
+export const setLoadingStatus = async (status: boolean, dispatch: Dispatch) => {
+  dispatch({
+    type: 'SET_LOAD_STATUS',
+    payload: status,
+  });
+};
