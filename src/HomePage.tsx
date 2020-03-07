@@ -44,7 +44,7 @@ const HomePage = () => {
           fetchQuestions(values, dispatch);
         }}
         render={props => (
-          <form onSubmit={props.handleSubmit} className="quizMenu">
+          <form onSubmit={props.handleSubmit} className="quizMenu container">
             <h3>Categories</h3>
             <select name="category" onChange={props.handleChange}>
               {categoryList.map(({ id, name }) => (
