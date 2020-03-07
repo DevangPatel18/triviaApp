@@ -3,7 +3,10 @@ import { IState, IAction } from './interfaces'
 
 const initialState: IState = {
   questions: [],
-  loadStatus : false
+  loadStatus : false,
+  answers: [],
+  isQuizActive: false,
+  currentQuestion: 0,
 }
 
 export const Store = React.createContext<IState | any>(initialState)

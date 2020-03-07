@@ -3,6 +3,9 @@ export type Dispatch = React.Dispatch<IAction>;
 export interface IState {
   questions: Array<IQuestion>;
   loadStatus: boolean;
+  answers: Array<string>;
+  isQuizActive: boolean;
+  currentQuestion: number;
 }
 
 export interface IAction {
