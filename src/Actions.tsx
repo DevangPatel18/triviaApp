@@ -1,5 +1,6 @@
 import { Dispatch, IQuizConfigForm } from './interfaces';
 import axios from 'axios';
+import { navigate } from '@reach/router';
 
 const fetchUrl = `https://opentdb.com/api.php`;
 
@@ -22,8 +23,11 @@ export const fetchQuestions = async (
       type: 'FETCH_QUESTIONS',
       payload: response.results,
     });
+    setLoadingStatus(false, dispatch);
+    setTimeout(() => {
+      navigate('/quiz');
+    }, 1000);
   }
-  setLoadingStatus(false, dispatch);
 };
 
 export const setLoadingStatus = async (status: boolean, dispatch: Dispatch) => {
