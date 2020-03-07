@@ -8,7 +8,9 @@ const QuizPage = () => {
 
   return (
     <React.Suspense fallback={<div>loading</div>}>
-      Quiz question
+      <section className="quizMenu">
+        Quiz question
+      </section>
     </React.Suspense>
   );
 };
