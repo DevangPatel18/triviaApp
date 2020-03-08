@@ -38,14 +38,22 @@ const QuizPage = () => {
           <em>({difficulty})</em>
         </h4>
         <p>{question}</p>
-        <div>
+        <div className="quizQuestion_choiceGrid">
           {type === 'boolean' ? (
             <>
-              <button>True</button>
-              <button>False</button>
+              <div className="quizQuestion_choiceGrid_choices">
+                <button>True</button>
+              </div>
+              <div className="quizQuestion_choiceGrid_choices">
+                <button>False</button>
+              </div>
             </>
           ) : (
-            selection.map((choice, idx) => <button key={idx}>{choice}</button>)
+            selection.map((choice, idx) => (
+              <div className="quizQuestion_choiceGrid_choices" key={idx}>
+                <button>{choice}</button>
+              </div>
+            ))
           )}
         </div>
         <button
