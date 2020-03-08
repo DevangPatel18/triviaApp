@@ -69,6 +69,7 @@ body
 
 .quizQuestion
   position: relative
+  padding-top: 3rem
 
   &_cancelButton
     position: absolute
@@ -83,3 +84,22 @@ body
     &:hover
       color: white
       background: black
+  
+  &_choiceGrid
+    display: flex
+    flex-wrap: wrap
+
+    &_choices
+      width: 50%
+      margin: 1rem 0
+
+      button
+        width: 70%
+        padding: 2rem 0
+        border: 5px solid #f5f2f2
+        background: #f5f2f2
+        transition: 0.2s ease-in-out
+        cursor: pointer
+
+        &:hover
+          border: 5px solid black
