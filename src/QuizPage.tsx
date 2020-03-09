@@ -4,6 +4,7 @@ import categoryList from './categories';
 import { Formik } from 'formik';
 import { navigate } from '@reach/router';
 import { cancelQuiz } from './Actions';
+import { decode } from 'he';
 
 const QuizPage = () => {
   const { state, dispatch } = React.useContext(Store);
@@ -23,7 +24,7 @@ const QuizPage = () => {
     incorrect_answers,
   } = questions[currentQuestion];
 
-  let selection = [...incorrect_answers, correct_answer];
+  let selection = [...incorrect_answers, correct_answer].map(decode);
 
   for (let i = selection.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -37,7 +38,7 @@ const QuizPage = () => {
         <h4>
           <em>({difficulty})</em>
         </h4>
-        <p>{question}</p>
+        <p>{decode(question)}</p>
         <div className="quizQuestion_choiceGrid">
           {type === 'boolean' ? (
             <>
