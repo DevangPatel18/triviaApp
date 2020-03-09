@@ -22,14 +22,10 @@ const QuizPage = () => {
     question,
     correct_answer,
     incorrect_answers,
+    choices,
   } = questions[currentQuestion];
 
-  let selection = [...incorrect_answers, correct_answer].map(decode);
-
-  for (let i = selection.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [selection[i], selection[j]] = [selection[j], selection[i]];
-  }
+  const selection = [...incorrect_answers, correct_answer].map(decode);
 
   return (
     <React.Suspense fallback={<div>loading</div>}>
@@ -50,9 +46,9 @@ const QuizPage = () => {
               </div>
             </>
           ) : (
-            selection.map((choice, idx) => (
-              <div className="quizQuestion_choiceGrid_choices" key={idx}>
-                <button>{choice}</button>
+            choices.map((index: number) => (
+              <div className="quizQuestion_choiceGrid_choices" key={index}>
+                <button>{selection[index]}</button>
               </div>
             ))
           )}
