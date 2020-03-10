@@ -40,3 +40,17 @@ export const setLoadingStatus = async (status: boolean, dispatch: Dispatch) => {
 export const cancelQuiz = async (dispatch: Dispatch) => {
   dispatch({ type: 'CANCEL_QUIZ', payload: null });
 };
+
+export const answerQuestion = async (answer: string, dispatch: Dispatch) => {
+  dispatch({
+    type: 'ANSWER_QUESTION',
+    payload: answer,
+  });
+};
+
+export const nextQuestion = async (dispatch: Dispatch) => {
+  dispatch({
+    type: 'NEXT_QUESTION',
+    payload: null,
+  });
+};

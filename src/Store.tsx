@@ -29,6 +29,13 @@ function reducer(state: IState, action: IAction): IState {
       return { ...state, questions: action.payload, isQuizActive: true };
     case 'SET_LOAD_STATUS':
       return { ...state, loadStatus: action.payload };
+    case 'ANSWER_QUESTION':
+      return {
+        ...state,
+        answers: [...state.answers, action.payload],
+      };
+    case 'NEXT_QUESTION':
+      return { ...state, currentQuestion: state.currentQuestion + 1 };
     case 'CANCEL_QUIZ':
       return {
         ...state,
