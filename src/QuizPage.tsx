@@ -3,7 +3,7 @@ import { Store } from './Store';
 import categoryList from './categories';
 import { Formik } from 'formik';
 import { navigate } from '@reach/router';
-import { cancelQuiz, answerQuestion } from './Actions';
+import { cancelQuiz, answerQuestion, nextQuestion } from './Actions';
 import { decode } from 'he';
 
 const QuizPage = () => {
@@ -74,6 +74,16 @@ const QuizPage = () => {
             ))
           )}
         </div>
+        {answers.length > currentQuestion && (
+          <button
+            onClick={() => {
+              if (answers.length < questions.length) nextQuestion(dispatch);
+            }}
+            className="quizQuestion_nextButton"
+          >
+            Next
+          </button>
+        )}
         <button
           className="quizQuestion_cancelButton"
           onClick={() => cancelQuiz(dispatch)}
