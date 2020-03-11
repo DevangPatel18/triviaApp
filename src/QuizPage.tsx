@@ -8,7 +8,7 @@ import { decode } from 'he';
 
 const QuizPage = () => {
   const { state, dispatch } = React.useContext(Store);
-  const { isQuizActive, questions, answers, currentQuestion } = state;
+  const { isQuizActive, questions, answers, currentQuestion, isFaded } = state;
 
   if (!isQuizActive) {
     navigate('/');
@@ -41,7 +41,10 @@ const QuizPage = () => {
 
   return (
     <React.Suspense fallback={<div>loading</div>}>
-      <section className="quizQuestion container">
+      <section
+        className="quizQuestion container"
+        style={{ opacity: isFaded ? 0 : 1 }}
+      >
         <h2>{category}</h2>
         <h4>
           <em>({difficulty})</em>
