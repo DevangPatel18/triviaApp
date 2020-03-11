@@ -27,7 +27,12 @@ function reducer(state: IState, action: IAction): IState {
           obj.choices = [];
         }
       });
-      return { ...state, questions: action.payload, isQuizActive: true };
+      return {
+        ...state,
+        questions: action.payload,
+        isQuizActive: true,
+        answers: [],
+      };
     case 'SET_LOAD_STATUS':
       return { ...state, loadStatus: action.payload };
     case 'ANSWER_QUESTION':
