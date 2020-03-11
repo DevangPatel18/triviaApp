@@ -25,9 +25,10 @@ const QuizPage = () => {
     choices,
   } = questions[currentQuestion];
 
-  const selection: Array<string> = [...incorrect_answers, correct_answer].map(
-    decode
-  );
+  const selection: Array<string> =
+    type === 'multiple'
+      ? [...incorrect_answers, correct_answer].map(decode)
+      : ['True', 'False'];
 
   const currentAnswer = answers[currentQuestion];
   const selectionStyles = selection.map(choice => {
@@ -54,12 +55,20 @@ const QuizPage = () => {
         <div className="quizQuestion_choiceGrid">
           {type === 'boolean' ? (
             <>
-              <div className="quizQuestion_choiceGrid_choices">
-                <button>True</button>
-              </div>
-              <div className="quizQuestion_choiceGrid_choices">
-                <button>False</button>
-              </div>
+              {selection.map((choice, idx) => (
+                <div className="quizQuestion_choiceGrid_choices" key={idx}>
+                  <button
+                    onClick={() => {
+                      if (answers.length === currentQuestion) {
+                        answerQuestion(choice, dispatch);
+                      }
+                    }}
+                    className={selectionStyles[idx]}
+                  >
+                    {choice}
+                  </button>
+                </div>
+              ))}
             </>
           ) : (
             choices.map((index: number) => (
