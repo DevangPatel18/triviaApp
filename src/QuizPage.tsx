@@ -3,12 +3,12 @@ import { Store } from './Store';
 import categoryList from './categories';
 import { Formik } from 'formik';
 import { navigate } from '@reach/router';
-import { cancelQuiz } from './Actions';
+import { cancelQuiz, answerQuestion } from './Actions';
 import { decode } from 'he';
 
 const QuizPage = () => {
   const { state, dispatch } = React.useContext(Store);
-  const { isQuizActive, questions, currentQuestion } = state;
+  const { isQuizActive, questions, answers, currentQuestion } = state;
 
   if (!isQuizActive) {
     navigate('/');
@@ -25,7 +25,9 @@ const QuizPage = () => {
     choices,
   } = questions[currentQuestion];
 
-  const selection = [...incorrect_answers, correct_answer].map(decode);
+  const selection: Array<string> = [...incorrect_answers, correct_answer].map(
+    decode
+  );
 
   return (
     <React.Suspense fallback={<div>loading</div>}>
@@ -48,7 +50,15 @@ const QuizPage = () => {
           ) : (
             choices.map((index: number) => (
               <div className="quizQuestion_choiceGrid_choices" key={index}>
-                <button>{selection[index]}</button>
+                <button
+                  onClick={() => {
+                    if (answers.length === currentQuestion) {
+                      answerQuestion(selection[index], dispatch);
+                    }
+                  }}
+                >
+                  {selection[index]}
+                </button>
               </div>
             ))
           )}
