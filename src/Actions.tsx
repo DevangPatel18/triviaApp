@@ -49,8 +49,14 @@ export const answerQuestion = async (answer: string, dispatch: Dispatch) => {
 };
 
 export const nextQuestion = async (dispatch: Dispatch) => {
-  dispatch({
-    type: 'NEXT_QUESTION',
+  await dispatch({
+    type: 'FADE_OUT',
     payload: null,
   });
+  setTimeout(() => {
+    dispatch({
+      type: 'NEXT_QUESTION',
+      payload: null,
+    });
+  }, 500);
 };
