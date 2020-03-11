@@ -6,6 +6,7 @@ export interface IState {
   answers: Array<string>;
   isQuizActive: boolean;
   currentQuestion: number;
+  isFaded: boolean;
 }
 
 export interface IAction {

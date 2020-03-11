@@ -7,6 +7,7 @@ const initialState: IState = {
   answers: [],
   isQuizActive: false,
   currentQuestion: 0,
+  isFaded: false,
 };
 
 export const Store = React.createContext<IState | any>(initialState);
@@ -35,7 +36,11 @@ function reducer(state: IState, action: IAction): IState {
         answers: [...state.answers, action.payload],
       };
     case 'NEXT_QUESTION':
-      return { ...state, currentQuestion: state.currentQuestion + 1 };
+      return {
+        ...state,
+        currentQuestion: state.currentQuestion + 1,
+        isFaded: false,
+      };
     case 'CANCEL_QUIZ':
       return {
         ...state,
@@ -43,6 +48,9 @@ function reducer(state: IState, action: IAction): IState {
         isQuizActive: false,
         currentQuestion: 0,
       };
+      0;
+    case 'FADE_OUT':
+      return { ...state, isFaded: true };
     default:
       return state;
   }
