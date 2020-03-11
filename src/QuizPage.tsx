@@ -29,6 +29,16 @@ const QuizPage = () => {
     decode
   );
 
+  const currentAnswer = answers[currentQuestion];
+  const selectionStyles = selection.map(choice => {
+    if (currentAnswer && choice === correct_answer) {
+      return 'correct';
+    } else if (currentAnswer === choice && currentAnswer !== correct_answer) {
+      return 'wrong';
+    }
+    return '';
+  });
+
   return (
     <React.Suspense fallback={<div>loading</div>}>
       <section className="quizQuestion container">
@@ -56,6 +66,7 @@ const QuizPage = () => {
                       answerQuestion(selection[index], dispatch);
                     }
                   }}
+                  className={selectionStyles[index]}
                 >
                   {selection[index]}
                 </button>
