@@ -31,6 +31,7 @@ const QuizPage = () => {
 
   const currentAnswer = answers[currentQuestion];
   const selectionStyles = selection.map(choice => {
+    if (isFaded) return '';
     if (currentAnswer && choice === correct_answer) {
       return 'correct';
     } else if (currentAnswer === choice && currentAnswer !== correct_answer) {
