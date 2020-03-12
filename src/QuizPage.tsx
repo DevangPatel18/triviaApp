@@ -87,14 +87,25 @@ const QuizPage = () => {
             ))
           )}
         </div>
-        {answers.length > currentQuestion && (
+        {answers.length > currentQuestion &&
+          answers.length !== questions.length && (
+            <button
+              onClick={() => {
+                if (answers.length < questions.length) nextQuestion(dispatch);
+              }}
+              className="quizQuestion_nextButton"
+            >
+              Next
+            </button>
+          )}
+        {answers.length === questions.length && (
           <button
             onClick={() => {
-              if (answers.length < questions.length) nextQuestion(dispatch);
+              navigate('/results');
             }}
             className="quizQuestion_nextButton"
           >
-            Next
+            Results
           </button>
         )}
         <button

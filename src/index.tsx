@@ -5,6 +5,7 @@ import { StoreProvider } from './Store'
 import { Router, RouteComponentProps } from '@reach/router'
 import HomePage from './HomePage'
 import QuizPage from './QuizPage'
+import ResultsPage from "./ResultsPage";
 require('./style.sass')
 require('normalize.css')
 
@@ -17,6 +18,7 @@ ReactDOM.render(
       <App path='/'>
         <RouterPage pageComponent={<HomePage />} path='/' />
         <RouterPage pageComponent={<QuizPage />} path='/quiz' />
+        <RouterPage pageComponent={<ResultsPage />} path='/results' />
       </App>
     </Router >
   </StoreProvider>,
