@@ -1,7 +1,6 @@
 import React from 'react';
 import { Store } from './Store';
 import { navigate } from '@reach/router';
-import { decode } from 'he';
 
 const Results = () => {
   const { state } = React.useContext(Store);
@@ -47,13 +46,13 @@ const Results = () => {
                   ({ question, correct_answer, difficulty }, idx) => (
                     <tr key={idx}>
                       <td>
-                        {decode(question)}{' '}
+                        {question}{' '}
                         <span className="quizResults_table_difficulty">
                           ({difficulty.substr(0, 1)})
                         </span>
                       </td>
-                      <td>{decode(correct_answer)}</td>
-                      <td>{decode(incorrectAnswers[idx])}</td>
+                      <td>{correct_answer}</td>
+                      <td>{incorrectAnswers[idx]}</td>
                     </tr>
                   )
                 )}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { IState, IAction } from './interfaces';
+import { decode } from 'he';
 
 const initialState: IState = {
   questions: [],
@@ -16,7 +17,10 @@ function reducer(state: IState, action: IAction): IState {
   switch (action.type) {
     case 'FETCH_QUESTIONS':
       action.payload.forEach(obj => {
+        obj.question = decode(obj.question);
         if (obj.type === 'multiple') {
+          obj.correct_answer = decode(obj.correct_answer);
+          obj.incorrect_answers = obj.incorrect_answers.map(decode);
           const indexes = [0, 1, 2, 3];
           for (let i = indexes.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
