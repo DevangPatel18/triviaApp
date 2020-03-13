@@ -4,7 +4,6 @@ import categoryList from './categories';
 import { Formik } from 'formik';
 import { navigate } from '@reach/router';
 import { cancelQuiz, answerQuestion, nextQuestion } from './Actions';
-import { decode } from 'he';
 
 const QuizPage = () => {
   const { state, dispatch } = React.useContext(Store);
@@ -27,7 +26,7 @@ const QuizPage = () => {
 
   const selection: Array<string> =
     type === 'multiple'
-      ? [...incorrect_answers, correct_answer].map(decode)
+      ? [...incorrect_answers, correct_answer]
       : ['True', 'False'];
 
   const currentAnswer = answers[currentQuestion];
@@ -51,7 +50,7 @@ const QuizPage = () => {
         <h4>
           <em>({difficulty})</em>
         </h4>
-        <p>{decode(question)}</p>
+        <p>{question}</p>
         <div className="quizQuestion_choiceGrid">
           {type === 'boolean' ? (
             <>
