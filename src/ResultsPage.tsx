@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Store } from './Store';
 import { navigate } from '@reach/router';
+import { cancelQuiz } from './Actions';
 
 const Results = () => {
-  const { state } = React.useContext(Store);
+  const { state, dispatch } = React.useContext(Store);
   const { isQuizActive, questions, answers } = state;
 
   if (!isQuizActive) {
     navigate('/');
     return null;
   }
+
+  useEffect(() => {
+    return () => {
+      cancelQuiz(dispatch);
+    };
+  }, []);
 
   let correctCount = 0;
   let incorrectAnswers = [];
