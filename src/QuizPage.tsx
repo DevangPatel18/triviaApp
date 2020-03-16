@@ -92,7 +92,7 @@ const QuizPage = () => {
               onClick={() => {
                 if (answers.length < questions.length) nextQuestion(dispatch);
               }}
-              className="quizQuestion_nextButton"
+              className="button"
             >
               Next
             </button>
@@ -102,13 +102,13 @@ const QuizPage = () => {
             onClick={() => {
               navigate('/results');
             }}
-            className="quizQuestion_nextButton"
+            className="button"
           >
             Results
           </button>
         )}
         <button
-          className="quizQuestion_cancelButton"
+          className="quizQuestion_cancelButton button"
           onClick={() => cancelQuiz(dispatch)}
         >
           ✖
