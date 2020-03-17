@@ -49,10 +49,7 @@ export const answerQuestion = async (answer: string, dispatch: Dispatch) => {
 };
 
 export const nextQuestion = async (dispatch: Dispatch) => {
-  await dispatch({
-    type: 'FADE_OUT',
-    payload: null,
-  });
+  await dispatch({ type: 'FADE_TOGGLE', payload: null });
   setTimeout(() => {
     dispatch({
       type: 'NEXT_QUESTION',
