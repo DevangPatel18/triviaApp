@@ -99,8 +99,10 @@ const QuizPage = () => {
           )}
         {answers.length === questions.length && (
           <button
-            onClick={() => {
-              navigate('/results');
+            onClick={async () => {
+              await dispatch({ type: 'FADE_TOGGLE', payload: null });
+              await navigate('/results');
+              dispatch({ type: 'FADE_TOGGLE', payload: null });
             }}
             className="button"
           >

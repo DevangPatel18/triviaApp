@@ -24,8 +24,10 @@ export const fetchQuestions = async (
       payload: response.results,
     });
     setLoadingStatus(false, dispatch);
-    setTimeout(() => {
-      navigate('/quiz');
+    dispatch({ type: 'FADE_TOGGLE', payload: null });
+    setTimeout(async () => {
+      await navigate('/quiz');
+      dispatch({ type: 'FADE_TOGGLE', payload: null });
     }, 1000);
   }
 };

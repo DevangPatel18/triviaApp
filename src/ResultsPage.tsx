@@ -5,7 +5,7 @@ import { cancelQuiz } from './Actions';
 
 const Results = () => {
   const { state, dispatch } = React.useContext(Store);
-  const { isQuizActive, questions, answers } = state;
+  const { isQuizActive, questions, answers, isFaded } = state;
 
   if (!isQuizActive) {
     navigate('/');
@@ -31,7 +31,7 @@ const Results = () => {
 
   return (
     <React.Suspense fallback={<div>loading</div>}>
-      <section className="container">
+      <section className="container" style={{ opacity: isFaded ? 0 : 1 }}>
         <h2>Results</h2>
         <p>
           Score: {correctCount} / {questions.length} (
