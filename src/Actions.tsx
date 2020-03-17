@@ -57,5 +57,5 @@ export const nextQuestion = async (dispatch: Dispatch) => {
       type: 'NEXT_QUESTION',
       payload: null,
     });
-  }, 500);
+  }, 300);
 };
