@@ -58,8 +58,8 @@ function reducer(state: IState, action: IAction): IState {
         currentQuestion: 0,
       };
       0;
-    case 'FADE_OUT':
-      return { ...state, isFaded: true };
+    case 'FADE_TOGGLE':
+      return { ...state, isFaded: !state.isFaded };
     default:
       return state;
   }
