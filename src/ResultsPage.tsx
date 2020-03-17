@@ -67,6 +67,14 @@ const Results = () => {
             </table>
           </>
         )}
+        <button
+          onClick={async () => {
+            await dispatch({ type: 'FADE_TOGGLE', payload: null });
+            await navigate('/');
+            dispatch({ type: 'FADE_TOGGLE', payload: null });
+          }}
+          className="button"
+        >home</button>
       </section>
     </React.Suspense>
   );
