@@ -38,89 +38,94 @@ const HomePage = () => {
 
   return (
     <React.Suspense fallback={<div>loading</div>}>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={values => {
-          fetchQuestions(values, dispatch);
-        }}
-        render={props => (
-          <form onSubmit={props.handleSubmit} className="quizMenu container">
-            <h3>Categories</h3>
-            <select name="category" onChange={props.handleChange}>
-              {categoryList.map(({ id, name }) => (
-                <option value={id} key={id}>
-                  {name}
-                </option>
-              ))}
-            </select>
-            <div className="quizMenu-radioGroup">
-              <div>
-                <h3>Difficulty</h3>
-                <ul>
-                  {difficultyOptions.map(({ value, id, label }, idx) => (
-                    <li key={idx}>
-                      <input
-                        type="radio"
-                        name="difficulty"
-                        value={value}
-                        id={id}
-                        checked={props.values.difficulty === value}
-                        onChange={props.handleChange}
-                      />
-                      <label htmlFor={id}>{label}</label>
-                    </li>
-                  ))}
-                </ul>
+      <section
+        className="quizQuestion container"
+        style={{ opacity: state.isFaded ? 0 : 1 }}
+      >
+        <Formik
+          initialValues={initialValues}
+          onSubmit={values => {
+            fetchQuestions(values, dispatch);
+          }}
+          render={props => (
+            <form onSubmit={props.handleSubmit}>
+              <h3>Categories</h3>
+              <select name="category" onChange={props.handleChange}>
+                {categoryList.map(({ id, name }) => (
+                  <option value={id} key={id}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+              <div className="quizMenu-radioGroup">
+                <div>
+                  <h3>Difficulty</h3>
+                  <ul>
+                    {difficultyOptions.map(({ value, id, label }, idx) => (
+                      <li key={idx}>
+                        <input
+                          type="radio"
+                          name="difficulty"
+                          value={value}
+                          id={id}
+                          checked={props.values.difficulty === value}
+                          onChange={props.handleChange}
+                        />
+                        <label htmlFor={id}>{label}</label>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h3>Type</h3>
+                  <ul>
+                    {typeOptions.map(({ value, id, label }, idx) => (
+                      <li key={idx}>
+                        <input
+                          type="radio"
+                          name="type"
+                          value={value}
+                          id={id}
+                          checked={props.values.type === value}
+                          onChange={props.handleChange}
+                        />
+                        <label htmlFor={id}>{label}</label>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-              <div>
-                <h3>Type</h3>
-                <ul>
-                  {typeOptions.map(({ value, id, label }, idx) => (
-                    <li key={idx}>
-                      <input
-                        type="radio"
-                        name="type"
-                        value={value}
-                        id={id}
-                        checked={props.values.type === value}
-                        onChange={props.handleChange}
-                      />
-                      <label htmlFor={id}>{label}</label>
-                    </li>
-                  ))}
-                </ul>
+              <div className="quizMenu_count">
+                <h3>Number of Questions</h3>
+                <p>{props.values.amount}</p>
+                <input
+                  type="range"
+                  name="amount"
+                  min="5"
+                  max="50"
+                  step="5"
+                  value={props.values.amount}
+                  onChange={props.handleChange}
+                  className="quizMenu_count_slider"
+                />
               </div>
-            </div>
-            <div className="quizMenu_count">
-              <h3>Number of Questions</h3>
-              <p>{props.values.amount}</p>
-              <input
-                type="range"
-                name="amount"
-                min="5"
-                max="50"
-                step="5"
-                value={props.values.amount}
-                onChange={props.handleChange}
-                className="quizMenu_count_slider"
-              />
-            </div>
-            <button type="submit" className="button">
-              Start Quiz
-            </button>
-          </form>
-        )}
-      />
-      <div style={{ margin: '3rem 0 auto', textAlign: 'center' }}>
-        {transitions.map(
-          ({ item, key, props }) =>
-            item && (
-              <animated.div style={props} key={key}>
-                Loading
-              </animated.div>
-            )
-        )}
-      </div>
+              <button type="submit" className="button">
+                Start Quiz
+              </button>
+            </form>
+          )}
+        />
+        <div style={{ margin: '3rem 0 auto', textAlign: 'center' }}>
+          {transitions.map(
+            ({ item, key, props }) =>
+              item && (
+                <animated.div style={props} key={key}>
+                  Loading
+                </animated.div>
+              )
+          )}
+        </div>
+      </section>
     </React.Suspense>
   );
 };
