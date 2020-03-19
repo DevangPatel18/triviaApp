@@ -7,6 +7,7 @@ export interface IState {
   isQuizActive: boolean;
   currentQuestion: number;
   isFaded: boolean;
+  questionCount: object;
 }
 
 export interface IAction {
@@ -29,4 +30,11 @@ export interface IQuestion {
   correct_answer: string;
   incorrect_answers: Array<string>;
   choices: Array<number>;
+}
+
+export interface IQuestionCount {
+  total_num_of_questions: number;
+  total_num_of_pending_questions: number;
+  total_num_of_verified_questions: number;
+  total_num_of_rejected_questions: number;
 }

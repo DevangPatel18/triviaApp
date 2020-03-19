@@ -1,15 +1,16 @@
-import { Dispatch, IQuizConfigForm } from './interfaces';
+import { Dispatch, IQuizConfigForm, IQuestionCount } from './interfaces';
 import axios from 'axios';
 import { navigate } from '@reach/router';
 
-const fetchUrl = `https://opentdb.com/api.php`;
+const questionsUrl = `https://opentdb.com/api.php`;
+const qCountUrl = 'https://opentdb.com/api_count_global.php';
 
 export const fetchQuestions = async (
   formState: IQuizConfigForm,
   dispatch: Dispatch
 ) => {
   setLoadingStatus(true, dispatch);
-  const response = await axios(fetchUrl, {
+  const response = await axios(questionsUrl, {
     params: formState,
     timeout: 2000,
   })
@@ -30,6 +31,26 @@ export const fetchQuestions = async (
       dispatch({ type: 'FADE_TOGGLE', payload: null });
     }, 1000);
   }
+};
+
+export const fetchQuestionCount = async (dispatch: Dispatch) => {
+  const response = await axios(qCountUrl, { timeout: 2000 })
+    .then(res => res.data)
+    .catch(err => {
+      console.log(err);
+    });
+  const questionCountObj = Object.entries(response?.categories).reduce(
+    (acc: object, [key, value]: [string, IQuestionCount]) => ({
+      ...acc,
+      [key]: value?.total_num_of_verified_questions,
+    }),
+    {}
+  );
+
+  dispatch({
+    type: 'UPDATE_QUESTION_COUNT',
+    payload: questionCountObj,
+  });
 };
 
 export const setLoadingStatus = async (status: boolean, dispatch: Dispatch) => {

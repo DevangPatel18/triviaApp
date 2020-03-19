@@ -9,6 +9,7 @@ const initialState: IState = {
   isQuizActive: false,
   currentQuestion: 0,
   isFaded: false,
+  questionCount: {},
 };
 
 export const Store = React.createContext<IState | any>(initialState);
@@ -60,6 +61,8 @@ function reducer(state: IState, action: IAction): IState {
       0;
     case 'FADE_TOGGLE':
       return { ...state, isFaded: !state.isFaded };
+    case 'UPDATE_QUESTION_COUNT':
+      return { ...state, questionCount: action.payload };
     default:
       return state;
   }
