@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Store } from './Store';
 import categoryList from './categories';
 import { Formik } from 'formik';
-import { fetchQuestions } from './Actions';
+import { fetchQuestions, fetchQuestionCount } from './Actions';
 import { IQuizConfigForm } from './interfaces';
 import { useTransition, animated } from 'react-spring';
 
@@ -28,7 +28,9 @@ const HomePage = () => {
     type: '',
   };
 
-  console.log(state.questions);
+  useEffect(() => {
+    fetchQuestionCount(dispatch);
+  }, []);
 
   const transitions = useTransition(state.loadStatus, null, {
     from: { opacity: 0 },
@@ -54,6 +56,7 @@ const HomePage = () => {
                 {categoryList.map(({ id, name }) => (
                   <option value={id} key={id}>
                     {name}
+                    {` (${state.questionCount?.[id]})`}
                   </option>
                 ))}
               </select>
