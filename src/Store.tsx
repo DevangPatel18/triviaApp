@@ -2,7 +2,7 @@ import React from 'react';
 import { IState, IAction } from './interfaces';
 import { decode } from 'he';
 
-const initialState: IState = {
+export const initialState: IState = {
   questions: [],
   loadStatus: false,
   answers: [],
@@ -14,7 +14,7 @@ const initialState: IState = {
 
 export const Store = React.createContext<IState | any>(initialState);
 
-function reducer(state: IState, action: IAction): IState {
+export function reducer(state: IState, action: IAction): IState {
   switch (action.type) {
     case 'FETCH_QUESTIONS':
       action.payload.forEach(obj => {
@@ -58,7 +58,6 @@ function reducer(state: IState, action: IAction): IState {
         isQuizActive: false,
         currentQuestion: 0,
       };
-      0;
     case 'FADE_TOGGLE':
       return { ...state, isFaded: !state.isFaded };
     case 'UPDATE_QUESTION_COUNT':
