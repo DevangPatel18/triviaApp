@@ -42,73 +42,72 @@ const QuizPage = () => {
 
   return (
     <React.Suspense fallback={<div>loading</div>}>
-      <section
-        className="quizQuestion container"
-        style={{ opacity: isFaded ? 0 : 1 }}
-      >
-        <h2>{category}</h2>
-        <h4>
-          <em>({difficulty})</em>
-        </h4>
-        <p>{question}</p>
-        <div className="quizQuestion_choiceGrid">
-          {type === 'boolean' ? (
-            <>
-              {selection.map((choice, idx) => (
-                <div className="quizQuestion_choiceGrid_choices" key={idx}>
+      <section className="container">
+        <div className="quizQuestion" style={{ opacity: isFaded ? 0 : 1 }}>
+          <h2>{category}</h2>
+          <h4>
+            <em>({difficulty})</em>
+          </h4>
+          <p>{question}</p>
+          <div className="quizQuestion_choiceGrid">
+            {type === 'boolean' ? (
+              <>
+                {selection.map((choice, idx) => (
+                  <div className="quizQuestion_choiceGrid_choices" key={idx}>
+                    <button
+                      onClick={() => {
+                        if (answers.length === currentQuestion) {
+                          answerQuestion(choice, dispatch);
+                        }
+                      }}
+                      className={selectionStyles[idx]}
+                    >
+                      {choice}
+                    </button>
+                  </div>
+                ))}
+              </>
+            ) : (
+              choices.map((index: number) => (
+                <div className="quizQuestion_choiceGrid_choices" key={index}>
                   <button
                     onClick={() => {
                       if (answers.length === currentQuestion) {
-                        answerQuestion(choice, dispatch);
+                        answerQuestion(selection[index], dispatch);
                       }
                     }}
-                    className={selectionStyles[idx]}
+                    className={selectionStyles[index]}
                   >
-                    {choice}
+                    {selection[index]}
                   </button>
                 </div>
-              ))}
-            </>
-          ) : (
-            choices.map((index: number) => (
-              <div className="quizQuestion_choiceGrid_choices" key={index}>
-                <button
-                  onClick={() => {
-                    if (answers.length === currentQuestion) {
-                      answerQuestion(selection[index], dispatch);
-                    }
-                  }}
-                  className={selectionStyles[index]}
-                >
-                  {selection[index]}
-                </button>
-              </div>
-            ))
-          )}
-        </div>
-        {answers.length > currentQuestion &&
-          answers.length !== questions.length && (
+              ))
+            )}
+          </div>
+          {answers.length > currentQuestion &&
+            answers.length !== questions.length && (
+              <button
+                onClick={() => {
+                  if (answers.length < questions.length) nextQuestion(dispatch);
+                }}
+                className="button"
+              >
+                Next
+              </button>
+            )}
+          {answers.length === questions.length && (
             <button
-              onClick={() => {
-                if (answers.length < questions.length) nextQuestion(dispatch);
+              onClick={async () => {
+                await dispatch({ type: 'FADE_TOGGLE', payload: null });
+                await navigate('/results');
+                dispatch({ type: 'FADE_TOGGLE', payload: null });
               }}
               className="button"
             >
-              Next
+              Results
             </button>
           )}
-        {answers.length === questions.length && (
-          <button
-            onClick={async () => {
-              await dispatch({ type: 'FADE_TOGGLE', payload: null });
-              await navigate('/results');
-              dispatch({ type: 'FADE_TOGGLE', payload: null });
-            }}
-            className="button"
-          >
-            Results
-          </button>
-        )}
+        </div>
         <button
           className="quizQuestion_cancelButton button"
           onClick={() => cancelQuiz(dispatch)}
