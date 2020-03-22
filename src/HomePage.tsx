@@ -38,6 +38,8 @@ const HomePage = () => {
     leave: { opacity: 0 },
   });
 
+  const emptyQuestionCount = Object.keys(state.questionCount).length === 0;
+
   return (
     <React.Suspense fallback={<div>loading</div>}>
       <section
@@ -56,7 +58,7 @@ const HomePage = () => {
                 {categoryList.map(({ id, name }) => (
                   <option value={id} key={id}>
                     {name}
-                    {` (${state.questionCount?.[id]})`}
+                    {emptyQuestionCount ? '' : ` (${state.questionCount[id]})`}
                   </option>
                 ))}
               </select>
