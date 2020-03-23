@@ -93,6 +93,26 @@ body
       box-shadow: inset 10rem 0 black
       color: white
 
+.quizProgressbar
+  height: 1.5rem
+  transition: 0.2s ease-in-out
+  position: relative
+  overflow: hidden
+  border-radius: 1rem
+  display: flex
+  align-items: center
+  background: #f5f2f2
+
+  &_fill
+    background: orange
+    color: white
+    font-weight: bolder
+    transition: 0.2s ease-in-out
+    min-width: 2rem
+    text-align: right
+    padding: 2px 0.5rem 2px 2px
+    border-radius: 1rem
+
 .quizQuestion
   position: relative
   padding-top: 3rem
