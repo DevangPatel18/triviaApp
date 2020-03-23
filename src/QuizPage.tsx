@@ -3,6 +3,7 @@ import { Store } from './Store';
 import { navigate } from '@reach/router';
 import { cancelQuiz } from './Actions';
 import QuizQuestion from './QuizQuestion';
+import QuizBar from './QuizBar';
 
 const QuizPage = () => {
   const { state, dispatch } = React.useContext(Store);
@@ -15,6 +16,7 @@ const QuizPage = () => {
   return (
     <React.Suspense fallback={<div>loading</div>}>
       <section className="container">
+        <QuizBar />
         <QuizQuestion />
         <button
           className="quizQuestion_cancelButton button"
