@@ -162,19 +162,27 @@ body
 .quizResults
 
   &_table
-    margin-top: 3rem
+    margin: 3rem auto 0
     border-collapse: collapse
+    background: #f5f2f2
+    color: #7b7b7b
 
     thead
       font-weight: bolder
   
     td
-      border: 1px solid #b1b1b1
+      border: 2px solid white
       padding: 8px
     
     tbody
       td:first-child
         text-align: left
+      
+      td:nth-child(2)
+        color: green
+      
+      td:nth-child(3)
+        color: indianred
     
     &_difficulty
       text-transform: uppercase
