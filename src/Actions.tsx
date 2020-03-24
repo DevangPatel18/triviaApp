@@ -33,6 +33,13 @@ export const fetchQuestions = async (
         dispatch({ type: 'FADE_TOGGLE', payload: null });
       }, 500);
     }, 1100);
+  } else if (response?.response_code === 1) {
+    setTimeout(async () => {
+      setLoadMessage('Not enough questions for specified quiz.', dispatch);
+      setTimeout(() => {
+        clearLoadMessage(dispatch);
+      }, 500);
+    }, 1100);
   }
 };
 
