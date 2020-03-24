@@ -125,7 +125,7 @@ const HomePage = () => {
             ({ item, key, props }) =>
               item && (
                 <animated.div style={props} key={key}>
-                  Loading
+                  {state.loadMessage}
                 </animated.div>
               )
           )}

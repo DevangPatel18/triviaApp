@@ -9,7 +9,7 @@ export const fetchQuestions = async (
   formState: IQuizConfigForm,
   dispatch: Dispatch
 ) => {
-  setLoadingStatus(true, dispatch);
+  setLoadMessage('loading', dispatch);
   const response = await axios(questionsUrl, {
     params: formState,
     timeout: 2000,
@@ -17,19 +17,22 @@ export const fetchQuestions = async (
     .then(res => res.data)
     .catch(err => {
       console.log(err);
-      setLoadingStatus(false, dispatch);
+      clearLoadMessage(dispatch);
     });
+
+  clearLoadMessage(dispatch);
   if (response?.response_code === 0) {
     dispatch({
       type: 'FETCH_QUESTIONS',
       payload: response.results,
     });
-    setLoadingStatus(false, dispatch);
-    dispatch({ type: 'FADE_TOGGLE', payload: null });
-    setTimeout(async () => {
-      await navigate('/quiz');
+    setTimeout(() => {
       dispatch({ type: 'FADE_TOGGLE', payload: null });
-    }, 1000);
+      setTimeout(async () => {
+        await navigate('/quiz');
+        dispatch({ type: 'FADE_TOGGLE', payload: null });
+      }, 500);
+    }, 1100);
   }
 };
 
@@ -53,11 +56,17 @@ export const fetchQuestionCount = async (dispatch: Dispatch) => {
   });
 };
 
-export const setLoadingStatus = async (status: boolean, dispatch: Dispatch) => {
-  dispatch({
-    type: 'SET_LOAD_STATUS',
-    payload: status,
-  });
+export const setLoadMessage = (message: string, dispatch: Dispatch) => {
+  dispatch({ type: 'ENABLE_LOAD_MESSAGE', payload: message });
+};
+
+export const clearLoadMessage = (dispatch: Dispatch) => {
+  setTimeout(() => {
+    dispatch({ type: 'DISABLE_LOAD_MESSAGE', payload: null });
+    setTimeout(() => {
+      dispatch({ type: 'CLEAR_LOAD_MESSAGE', payload: null });
+    }, 500);
+  }, 500);
 };
 
 export const cancelQuiz = async (dispatch: Dispatch) => {
