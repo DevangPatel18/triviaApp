@@ -5,6 +5,7 @@ import { decode } from 'he';
 export const initialState: IState = {
   questions: [],
   loadStatus: false,
+  loadMessage: '',
   answers: [],
   isQuizActive: false,
   currentQuestion: 0,
@@ -40,6 +41,12 @@ export function reducer(state: IState, action: IAction): IState {
       };
     case 'SET_LOAD_STATUS':
       return { ...state, loadStatus: action.payload };
+    case 'ENABLE_LOAD_MESSAGE':
+      return { ...state, loadMessage: action.payload, loadStatus: true };
+    case 'DISABLE_LOAD_MESSAGE':
+      return { ...state, loadStatus: false };
+    case 'CLEAR_LOAD_MESSAGE':
+      return { ...state, loadMessage: '' };
     case 'ANSWER_QUESTION':
       return {
         ...state,
