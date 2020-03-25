@@ -20,12 +20,7 @@ export const fetchQuestions = async (
     .catch(err => {
       console.log(err);
       clearLoadMessage(dispatch);
-      setTimeout(async () => {
-        setLoadMessage('Fetch request time out error.', dispatch);
-        setTimeout(() => {
-          clearLoadMessage(dispatch);
-        }, ERROR_MESSAGE_DURATION);
-      }, CLEAR_MESSAGE_DURATION);
+      showErrorMessage('Fetch request time out error.', dispatch);
     });
 
   clearLoadMessage(dispatch);
@@ -42,12 +37,7 @@ export const fetchQuestions = async (
       }, ERROR_MESSAGE_DURATION);
     }, CLEAR_MESSAGE_DURATION);
   } else if (response?.response_code === 1) {
-    setTimeout(async () => {
-      setLoadMessage('Not enough questions for specified quiz.', dispatch);
-      setTimeout(() => {
-        clearLoadMessage(dispatch);
-      }, ERROR_MESSAGE_DURATION);
-    }, CLEAR_MESSAGE_DURATION);
+    showErrorMessage('Not enough questions for specified quiz.', dispatch);
   }
 };
 
