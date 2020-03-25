@@ -71,6 +71,15 @@ export const fetchQuestionCount = async (dispatch: Dispatch) => {
   });
 };
 
+export const showErrorMessage = (message: string, dispatch: Dispatch) => {
+  setTimeout(() => {
+    setLoadMessage(message, dispatch);
+    setTimeout(() => {
+      clearLoadMessage(dispatch);
+    }, ERROR_MESSAGE_DURATION);
+  }, CLEAR_MESSAGE_DURATION);
+};
+
 export const setLoadMessage = (message: string, dispatch: Dispatch) => {
   dispatch({ type: 'ENABLE_LOAD_MESSAGE', payload: message });
 };
