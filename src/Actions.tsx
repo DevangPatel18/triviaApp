@@ -2,6 +2,8 @@ import { Dispatch, IQuizConfigForm, IQuestionCount } from './interfaces';
 import axios from 'axios';
 import { navigate } from '@reach/router';
 
+const CLEAR_MESSAGE_DURATION = 500;
+const ERROR_MESSAGE_DURATION = 500;
 const questionsUrl = `https://opentdb.com/api.php`;
 const qCountUrl = 'https://opentdb.com/api_count_global.php';
 
@@ -22,8 +24,8 @@ export const fetchQuestions = async (
         setLoadMessage('Fetch request time out error.', dispatch);
         setTimeout(() => {
           clearLoadMessage(dispatch);
-        }, 500);
-      }, 1100);
+        }, ERROR_MESSAGE_DURATION);
+      }, CLEAR_MESSAGE_DURATION);
     });
 
   clearLoadMessage(dispatch);
@@ -37,15 +39,15 @@ export const fetchQuestions = async (
       setTimeout(async () => {
         await navigate('/quiz');
         dispatch({ type: 'FADE_TOGGLE', payload: null });
-      }, 500);
-    }, 1100);
+      }, ERROR_MESSAGE_DURATION);
+    }, CLEAR_MESSAGE_DURATION);
   } else if (response?.response_code === 1) {
     setTimeout(async () => {
       setLoadMessage('Not enough questions for specified quiz.', dispatch);
       setTimeout(() => {
         clearLoadMessage(dispatch);
-      }, 500);
-    }, 1100);
+      }, ERROR_MESSAGE_DURATION);
+    }, CLEAR_MESSAGE_DURATION);
   }
 };
 
@@ -74,12 +76,10 @@ export const setLoadMessage = (message: string, dispatch: Dispatch) => {
 };
 
 export const clearLoadMessage = (dispatch: Dispatch) => {
+  dispatch({ type: 'DISABLE_LOAD_MESSAGE', payload: null });
   setTimeout(() => {
-    dispatch({ type: 'DISABLE_LOAD_MESSAGE', payload: null });
-    setTimeout(() => {
-      dispatch({ type: 'CLEAR_LOAD_MESSAGE', payload: null });
-    }, 500);
-  }, 500);
+    dispatch({ type: 'CLEAR_LOAD_MESSAGE', payload: null });
+  }, 200);
 };
 
 export const cancelQuiz = async (dispatch: Dispatch) => {
