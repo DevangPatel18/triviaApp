@@ -20,7 +20,7 @@ export const fetchQuestions = async (
     .catch(err => {
       console.log(err);
       clearLoadMessage(dispatch);
-      showErrorMessage('Fetch request time out error.', dispatch);
+      showErrorMessage(err.message, dispatch);
     });
 
   clearLoadMessage(dispatch);
