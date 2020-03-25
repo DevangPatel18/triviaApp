@@ -18,6 +18,12 @@ export const fetchQuestions = async (
     .catch(err => {
       console.log(err);
       clearLoadMessage(dispatch);
+      setTimeout(async () => {
+        setLoadMessage('Fetch request time out error.', dispatch);
+        setTimeout(() => {
+          clearLoadMessage(dispatch);
+        }, 500);
+      }, 1100);
     });
 
   clearLoadMessage(dispatch);
