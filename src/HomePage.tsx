@@ -106,9 +106,9 @@ const HomePage = () => {
                 <input
                   type="range"
                   name="amount"
-                  min="5"
+                  min="1"
                   max="50"
-                  step="5"
+                  step="1"
                   value={props.values.amount}
                   onChange={props.handleChange}
                   className="quizMenu_count_slider"
