@@ -5,7 +5,7 @@ const QuizBar = () => {
   const { state } = React.useContext(Store);
   const { questions, answers } = state;
 
-  const percentage = 100 * (answers.length / questions.length);
+  const percentage = (100 * (answers.length / questions.length)).toFixed();
 
   return (
     <nav>
