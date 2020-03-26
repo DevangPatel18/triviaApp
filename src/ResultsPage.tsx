@@ -35,7 +35,7 @@ const Results = () => {
         <h2>Results</h2>
         <p>
           Score: {correctCount} / {questions.length} (
-          {(correctCount / questions.length) * 100}%)
+          {(100 * (correctCount / questions.length)).toFixed()}%)
         </p>
         {incorrectAnswers.length > 0 && (
           <>
