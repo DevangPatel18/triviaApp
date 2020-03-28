@@ -1,4 +1,5 @@
 import { initialState, reducer } from '../Store';
+import sampleQuiz from '../sampleQuiz';
 
 describe('Store reducer', () => {
   it('Sets load status', () => {
@@ -27,5 +28,21 @@ describe('Store reducer', () => {
       { type: 'FADE_TOGGLE', payload: null }
     );
     expect(state_b.isFaded).toBeTruthy();
+  });
+
+  it('Fetches quiz questions', () => {
+    const state_a = reducer(
+      { ...initialState },
+      { type: 'FETCH_QUESTIONS', payload: sampleQuiz }
+    );
+
+    expect(state_a.questions).toHaveLength(sampleQuiz.length);
+
+    state_a.questions.forEach(question => {
+      expect(question.choices).toEqual(expect.arrayContaining([0, 1, 2, 3]));
+    });
+
+    expect(state_a.isQuizActive).toBeTruthy();
+    expect(state_a.answers).toHaveLength(0);
   });
 });
