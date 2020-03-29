@@ -30,7 +30,7 @@ describe('Store reducer', () => {
     expect(state_b.isFaded).toBeTruthy();
   });
 
-  it('Fetches quiz questions', () => {
+  it('Tests quiz functionality', () => {
     const state_a = reducer(
       { ...initialState },
       { type: 'FETCH_QUESTIONS', payload: sampleQuiz }
@@ -44,5 +44,22 @@ describe('Store reducer', () => {
 
     expect(state_a.isQuizActive).toBeTruthy();
     expect(state_a.answers).toHaveLength(0);
+
+    const state_b = reducer(state_a, {
+      type: 'ANSWER_QUESTION',
+      payload: state_a.questions[0].correct_answer,
+    });
+
+    expect(state_b.answers).toHaveLength(1);
+
+    const state_c = reducer(state_b, { type: 'NEXT_QUESTION', payload: null });
+
+    expect(state_c.currentQuestion).toBe(1);
+
+    const state_d = reducer(state_c, { type: 'CANCEL_QUIZ', payload: null });
+
+    expect(state_d.questions).toHaveLength(0);
+    expect(state_d.isQuizActive).toBeFalsy();
+    expect(state_d.currentQuestion).toBe(0);
   });
 });
