@@ -39,8 +39,6 @@ export function reducer(state: IState, action: IAction): IState {
         isQuizActive: true,
         answers: [],
       };
-    case 'SET_LOAD_STATUS':
-      return { ...state, loadStatus: action.payload };
     case 'ENABLE_LOAD_MESSAGE':
       return { ...state, loadMessage: action.payload, loadStatus: true };
     case 'DISABLE_LOAD_MESSAGE':
