@@ -2,18 +2,28 @@ import { initialState, reducer } from '../Store';
 import sampleQuiz from '../sampleQuiz';
 
 describe('Store reducer', () => {
-  it('Sets load status', () => {
+  it('Manages load message', () => {
+    const message = 'loading';
     const state_a = reducer(
-      { ...initialState, loadStatus: true },
-      { type: 'SET_LOAD_STATUS', payload: false }
+      { ...initialState },
+      { type: 'ENABLE_LOAD_MESSAGE', payload: message }
     );
-    expect(state_a.loadStatus).toBeFalsy();
+    expect(state_a.loadMessage).toBe(message);
+    expect(state_a.loadStatus).toBeTruthy();
 
-    const state_b = reducer(
-      { ...initialState, loadStatus: false },
-      { type: 'SET_LOAD_STATUS', payload: true }
-    );
-    expect(state_b.loadStatus).toBeTruthy();
+    const state_b = reducer(state_a, {
+      type: 'DISABLE_LOAD_MESSAGE',
+      payload: null,
+    });
+    expect(state_b.loadMessage).toBe(message);
+    expect(state_b.loadStatus).toBeFalsy();
+
+    const state_c = reducer(state_b, {
+      type: 'CLEAR_LOAD_MESSAGE',
+      payload: null,
+    });
+    expect(state_c.loadMessage).toBe('');
+    expect(state_c.loadStatus).toBeFalsy();
   });
 
   it('Toggles fade property', () => {
