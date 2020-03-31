@@ -9,6 +9,8 @@ export interface IState {
   currentQuestion: number;
   isFaded: boolean;
   questionCount: object;
+  sessionToken: string;
+  sessionTokenDate: number;
 }
 
 export interface IAction {

@@ -11,6 +11,8 @@ export const initialState: IState = {
   currentQuestion: 0,
   isFaded: false,
   questionCount: {},
+  sessionToken: '',
+  sessionTokenDate: null,
 };
 
 export const Store = React.createContext<IState | any>(initialState);
@@ -67,6 +69,12 @@ export function reducer(state: IState, action: IAction): IState {
       return { ...state, isFaded: !state.isFaded };
     case 'UPDATE_QUESTION_COUNT':
       return { ...state, questionCount: action.payload };
+    case 'UPDATE_SESSION_TOKEN':
+      return {
+        ...state,
+        sessionToken: action.payload.sessionToken,
+        sessionTokenDate: action.payload.sessionTokenDate,
+      };
     default:
       return state;
   }
