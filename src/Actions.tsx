@@ -6,6 +6,7 @@ const CLEAR_MESSAGE_DURATION = 500;
 const ERROR_MESSAGE_DURATION = 500;
 const questionsUrl = `https://opentdb.com/api.php`;
 const qCountUrl = 'https://opentdb.com/api_count_global.php';
+const sessionUrl = 'https://opentdb.com/api_token.php?command=request';
 
 export const fetchQuestions = async (
   formState: IQuizConfigForm,
@@ -58,6 +59,24 @@ export const fetchQuestionCount = async (dispatch: Dispatch) => {
   dispatch({
     type: 'UPDATE_QUESTION_COUNT',
     payload: questionCountObj,
+  });
+};
+
+export const fetchSessionToken = async (dispatch: Dispatch) => {
+  let sessionToken = localStorage.getItem('sessionToken');
+  let sessionTokenDate = parseInt(localStorage.getItem('sessionTokenDate'));
+  if (!sessionToken || Date.now() - sessionTokenDate > 21.6e6) {
+    const response = await axios(sessionUrl).then(res => res.data);
+    if (response.response_code === 0) {
+      sessionToken = response.token;
+      sessionTokenDate = Date.now();
+      localStorage.setItem('sessionToken', sessionToken);
+      localStorage.setItem('sessionTokenDate', String(sessionTokenDate));
+    } else return;
+  }
+  dispatch({
+    type: 'UPDATE_SESSION_TOKEN',
+    payload: { sessionToken, sessionTokenDate },
   });
 };
 
