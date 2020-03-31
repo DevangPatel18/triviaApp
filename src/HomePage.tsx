@@ -2,7 +2,11 @@ import React, { useEffect } from 'react';
 import { Store } from './Store';
 import categoryList from './categories';
 import { Formik } from 'formik';
-import { fetchQuestions, fetchQuestionCount } from './Actions';
+import {
+  fetchQuestions,
+  fetchQuestionCount,
+  fetchSessionToken,
+} from './Actions';
 import { IQuizConfigForm } from './interfaces';
 import { useTransition, animated } from 'react-spring';
 
@@ -30,6 +34,7 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchQuestionCount(dispatch);
+    fetchSessionToken(dispatch);
   }, []);
 
   const transitions = useTransition(state.loadStatus, null, {
