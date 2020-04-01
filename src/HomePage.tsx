@@ -54,7 +54,7 @@ const HomePage = () => {
         <Formik
           initialValues={initialValues}
           onSubmit={values => {
-            fetchQuestions(values, dispatch);
+            fetchQuestions(values, state.sessionToken, dispatch);
           }}
           render={props => (
             <form onSubmit={props.handleSubmit}>

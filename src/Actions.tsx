@@ -10,11 +10,12 @@ const sessionUrl = 'https://opentdb.com/api_token.php';
 
 export const fetchQuestions = async (
   formState: IQuizConfigForm,
+  sessionToken: string,
   dispatch: Dispatch
 ) => {
   setLoadMessage('loading', dispatch);
   const response = await axios(questionsUrl, {
-    params: formState,
+    params: { ...formState, token: sessionToken },
     timeout: 2000,
   })
     .then(res => res.data)
@@ -37,8 +38,9 @@ export const fetchQuestions = async (
         dispatch({ type: 'FADE_TOGGLE', payload: null });
       }, ERROR_MESSAGE_DURATION);
     }, CLEAR_MESSAGE_DURATION);
-  } else if (response?.response_code === 1) {
-    showErrorMessage('Not enough questions for specified quiz.', dispatch);
+  } else if (response?.response_code === 4) {
+    showErrorMessage('Not enough new questions for specified quiz.', dispatch);
+    resetSessionToken(sessionToken, dispatch);
   }
 };
 
