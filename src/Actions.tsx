@@ -6,7 +6,7 @@ const CLEAR_MESSAGE_DURATION = 500;
 const ERROR_MESSAGE_DURATION = 500;
 const questionsUrl = `https://opentdb.com/api.php`;
 const qCountUrl = 'https://opentdb.com/api_count_global.php';
-const sessionUrl = 'https://opentdb.com/api_token.php?command=request';
+const sessionUrl = 'https://opentdb.com/api_token.php';
 
 export const fetchQuestions = async (
   formState: IQuizConfigForm,
@@ -66,7 +66,10 @@ export const fetchSessionToken = async (dispatch: Dispatch) => {
   let sessionToken = localStorage.getItem('sessionToken');
   let sessionTokenDate = parseInt(localStorage.getItem('sessionTokenDate'));
   if (!sessionToken || Date.now() - sessionTokenDate > 21.6e6) {
-    const response = await axios(sessionUrl).then(res => res.data);
+    const response = await axios(sessionUrl, {
+      params: { command: 'request' },
+      timeout: 2000,
+    }).then(res => res.data);
     if (response.response_code === 0) {
       sessionToken = response.token;
       sessionTokenDate = Date.now();
