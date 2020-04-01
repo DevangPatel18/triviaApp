@@ -83,6 +83,25 @@ export const fetchSessionToken = async (dispatch: Dispatch) => {
   });
 };
 
+export const resetSessionToken = (sessionToken: string, dispatch: Dispatch) => {
+  axios(sessionUrl, {
+    params: { command: 'reset', token: sessionToken },
+    timeout: 2000,
+  })
+    .then(res => {
+      console.log(res.data);
+      if (res.data.response_code === 0) {
+        const sessionTokenDate = Date.now();
+        localStorage.setItem('sessionTokenDate', String(sessionTokenDate));
+        dispatch({
+          type: 'UPDATE_SESSION_TOKEN',
+          payload: { sessionToken, sessionTokenDate },
+        });
+      }
+    })
+    .catch(err => console.log(err));
+};
+
 export const showErrorMessage = (message: string, dispatch: Dispatch) => {
   setTimeout(() => {
     setLoadMessage(message, dispatch);
