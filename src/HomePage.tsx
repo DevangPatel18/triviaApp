@@ -6,6 +6,7 @@ import {
   fetchQuestions,
   fetchQuestionCount,
   fetchSessionToken,
+  showErrorMessage,
 } from './Actions';
 import { IQuizConfigForm } from './interfaces';
 import { useTransition, animated } from 'react-spring';
@@ -54,7 +55,11 @@ const HomePage = () => {
         <Formik
           initialValues={initialValues}
           onSubmit={values => {
-            fetchQuestions(values, state.sessionToken, dispatch);
+            if (values.amount > state.questionCount[values.category]) {
+              showErrorMessage('Not enough questions in category.', dispatch);
+            } else {
+              fetchQuestions(values, state.sessionToken, dispatch);
+            }
           }}
           render={props => (
             <form onSubmit={props.handleSubmit}>
