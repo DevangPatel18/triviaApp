@@ -2,8 +2,6 @@ import { Dispatch, IQuizConfigForm, IQuestionCount } from './interfaces';
 import axios from 'axios';
 import { navigate } from '@reach/router';
 
-const CLEAR_MESSAGE_DURATION = 500;
-const ERROR_MESSAGE_DURATION = 500;
 const questionsUrl = `https://opentdb.com/api.php`;
 const qCountUrl = 'https://opentdb.com/api_count_global.php';
 const sessionUrl = 'https://opentdb.com/api_token.php';
@@ -22,26 +20,27 @@ export const fetchQuestions = async (
     timeout: 2000,
   })
     .then(res => res.data)
-    .catch(err => {
+    .catch(async err => {
       console.log(err);
       clearLoadMessage(dispatch);
-      showErrorMessage(err.message, dispatch);
+      await delay(500);
+      await showErrorMessage(err.message, dispatch);
     });
 
+  await delay(300);
   clearLoadMessage(dispatch);
+  await delay(300);
   if (response?.response_code === 0) {
     dispatch({
       type: 'FETCH_QUESTIONS',
       payload: response.results,
     });
-    setTimeout(() => {
-      dispatch({ type: 'FADE_TOGGLE', payload: null });
-      setTimeout(async () => {
-        await navigate('/quiz');
-        dispatch({ type: 'FADE_TOGGLE', payload: null });
-      }, ERROR_MESSAGE_DURATION);
-    }, CLEAR_MESSAGE_DURATION);
+    dispatch({ type: 'FADE_TOGGLE', payload: null });
+    await delay(500);
+    await navigate('/quiz');
+    dispatch({ type: 'FADE_TOGGLE', payload: null });
   } else if (response?.response_code === 4) {
+    await delay(100);
     showErrorMessage('Not enough new questions for specified quiz.', dispatch);
     resetSessionToken(sessionToken, dispatch);
   }
@@ -107,24 +106,20 @@ export const resetSessionToken = (sessionToken: string, dispatch: Dispatch) => {
     .catch(err => console.log(err));
 };
 
-export const showErrorMessage = (message: string, dispatch: Dispatch) => {
-  setTimeout(() => {
-    setLoadMessage(message, dispatch);
-    setTimeout(() => {
-      clearLoadMessage(dispatch);
-    }, ERROR_MESSAGE_DURATION);
-  }, CLEAR_MESSAGE_DURATION);
+export const showErrorMessage = async (message: string, dispatch: Dispatch) => {
+  setLoadMessage(message, dispatch);
+  await delay(500);
+  clearLoadMessage(dispatch);
 };
 
 export const setLoadMessage = (message: string, dispatch: Dispatch) => {
   dispatch({ type: 'ENABLE_LOAD_MESSAGE', payload: message });
 };
 
-export const clearLoadMessage = (dispatch: Dispatch) => {
+export const clearLoadMessage = async (dispatch: Dispatch) => {
   dispatch({ type: 'DISABLE_LOAD_MESSAGE', payload: null });
-  setTimeout(() => {
-    dispatch({ type: 'CLEAR_LOAD_MESSAGE', payload: null });
-  }, 200);
+  await delay(200);
+  dispatch({ type: 'CLEAR_LOAD_MESSAGE', payload: null });
 };
 
 export const cancelQuiz = async (dispatch: Dispatch) => {
@@ -139,11 +134,7 @@ export const answerQuestion = async (answer: string, dispatch: Dispatch) => {
 };
 
 export const nextQuestion = async (dispatch: Dispatch) => {
-  await dispatch({ type: 'FADE_TOGGLE', payload: null });
-  setTimeout(() => {
-    dispatch({
-      type: 'NEXT_QUESTION',
-      payload: null,
-    });
-  }, 300);
+  dispatch({ type: 'FADE_TOGGLE', payload: null });
+  await delay(300);
+  dispatch({ type: 'NEXT_QUESTION', payload: null });
 };
