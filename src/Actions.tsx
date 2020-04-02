@@ -8,6 +8,9 @@ const questionsUrl = `https://opentdb.com/api.php`;
 const qCountUrl = 'https://opentdb.com/api_count_global.php';
 const sessionUrl = 'https://opentdb.com/api_token.php';
 
+const delay = async (milliSeconds: number) =>
+  new Promise(resolve => setTimeout(resolve, milliSeconds));
+
 export const fetchQuestions = async (
   formState: IQuizConfigForm,
   sessionToken: string,
