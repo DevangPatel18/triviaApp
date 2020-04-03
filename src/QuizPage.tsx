@@ -17,14 +17,16 @@ const QuizPage = () => {
   return (
     <React.Suspense fallback={<div>loading</div>}>
       <section className="container">
-        <QuizBar />
+        <div className="quizQuestion_topBar">
+          <QuizBar />
+          <button
+            className="quizQuestion_cancelButton button"
+            onClick={() => setDialogView(true)}
+          >
+            ✖
+          </button>
+        </div>
         <QuizQuestion />
-        <button
-          className="quizQuestion_cancelButton button"
-          onClick={() => setDialogView(true)}
-        >
-          ✖
-        </button>
 
         <div
           className="quizQuestion_cancelDialog"

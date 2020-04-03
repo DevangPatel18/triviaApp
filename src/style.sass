@@ -93,6 +93,8 @@ body
       color: white
 
 .quizProgressbar
+  margin: 0 auto
+  max-width: 80%
   height: 1.5rem
   transition: 0.2s ease-in-out
   position: relative
@@ -117,6 +119,9 @@ body
   padding-top: 3rem
   transition: 0.2s ease-in-out
 
+  &_topBar
+    position: relative
+
   &_cancelDialog
     position: absolute
     left: 0
@@ -135,10 +140,11 @@ body
 
   &_cancelButton
     position: absolute
-    right: 1rem
-    top: 1rem
+    right: 0
+    top: 0
     box-shadow: none
     padding: 0.1rem 0.25rem
+    margin: 0
 
     &:hover
       background: black

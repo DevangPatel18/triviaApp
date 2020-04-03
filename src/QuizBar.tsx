@@ -8,18 +8,16 @@ const QuizBar = () => {
   const percentage = (100 * (answers.length / questions.length)).toFixed();
 
   return (
-    <nav>
-      <div className="quizProgressbar">
-        <span
-          style={{
-            width: `${percentage}%`,
-          }}
-          className="quizProgressbar_fill"
-        >
-          {`${percentage}%`}
-        </span>
-      </div>
-    </nav>
+    <div className="quizProgressbar">
+      <span
+        style={{
+          width: `${percentage}%`,
+        }}
+        className="quizProgressbar_fill"
+      >
+        {`${percentage}%`}
+      </span>
+    </div>
   );
 };
 
