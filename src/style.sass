@@ -3,7 +3,7 @@ body
 
 .container
   margin: 0 auto
-  width: 800px
+  max-width: 800px
   text-align: center
   transition: 0.2s ease-in-out
 
@@ -154,8 +154,10 @@ body
     flex-wrap: wrap
 
     &_choices
-      width: 50%
       margin: 1rem 0
+      flex-basis: 50%
+      display: flex
+      justify-content: center
 
       button
         width: 70%
