@@ -185,6 +185,25 @@ body
         animation: checkmark 1s ease
         transform-origin: left top
         z-index: 1
+      
+      button.wrong::before,
+      button.wrong::after
+        content: ''
+        position: absolute
+        top: 3px
+        width: 36%
+        border-top: 13px solid #78000066
+        animation: cross .4s ease
+      
+      button.wrong::before
+        left: 39%
+        transform: rotate(45deg)
+        transform-origin: left top
+      
+      button.wrong::after
+        right: 39%
+        transform: rotate(-45deg)
+        transform-origin: right top
 
       .correct
         background: lightgreen
@@ -240,3 +259,9 @@ body
   100%
     height: 30%
     width: 34%
+
+@keyframes cross
+  0%
+    width: 0
+  100%
+    width: 36%
