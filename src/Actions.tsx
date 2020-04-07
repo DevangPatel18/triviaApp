@@ -17,7 +17,7 @@ export const fetchQuestions = async (
   setLoadMessage('loading', dispatch);
   const response = await axios(questionsUrl, {
     params: { ...formState, token: sessionToken },
-    timeout: 2000,
+    timeout: 10000,
   })
     .then(res => res.data)
     .catch(async err => {
