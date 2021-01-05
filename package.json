@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@reach/router": "^1.2.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "formik": "^2.1.4",
     "he": "^1.2.0",
     "normalize.css": "^8.0.1",
